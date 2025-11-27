@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors'); // <-- import cors
 const connectDB = require('./db');
 const authRoutes = require('./Routes/auth');
 const bookingRoutes = require('./Routes/bookings');
@@ -8,6 +9,15 @@ const app = express();
 
 // Body parser
 app.use(express.json());
+
+// Enable CORS
+app.use(
+  cors({
+    origin: "http://192.168.1.10:3000", // <-- frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 
 // Root Indicator Route
 app.get("/", (req, res) => {
